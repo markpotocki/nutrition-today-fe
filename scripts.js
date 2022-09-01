@@ -1,12 +1,53 @@
-// Document toggle switch
-const TOGGLE_BUTTON_ID = 'toggle-btn';
-const TARGET_ATTRIBUTE_VAL = 'data-toggle';
-const HIDE_CLASS_NAME = 'hide';
-document.getElementById(TOGGLE_BUTTON_ID).addEventListener('click', (e) => {
-    console.debug('toggling nav menu');
-    console.debug(e.target);
-    const toggleID = e.target.getAttribute(TARGET_ATTRIBUTE_VAL);
-    console.debug('toggling id', toggleID);
-    const toggleElement = document.getElementById(toggleID);
-    toggleElement.classList.contains(HIDE_CLASS_NAME) ? toggleElement.classList.remove(HIDE_CLASS_NAME) : toggleElement.classList.add(HIDE_CLASS_NAME);
-})
+
+// goals-chart
+// createResultsChart takes a targetID of a canvas element and 
+// loads the bar chart using the results stored in results and
+// goals.
+// @param targetID: ID of the canvas element to render in
+// @param results: array of the results
+// @param goals: array of the goals
+function createResultsChart(targetID, results, goals) {
+    const ctx = document.getElementById(targetID).getContext('2d');
+    const resultsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Goal',
+                data: goals,
+                backgroundColor: [
+                    'rgba(255,99,132,0.2)'
+                ],
+                borderColor: [
+                    'rgb(255,99,132,1)'
+                ],
+                borderWidth: 1
+            },{
+                label: 'Actual',
+                data: results,
+                backgroundColor: [
+                    'rgba(75,192,192,0.2)'
+                ],
+                borderColor: [
+                    'rgb(75,192,192,1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// initProfilePage initializes dynamic data for the profile page
+function initProfilePage() {
+    // Create the results graph
+    goals = [400, 390, 380, 370, 360, 350, 340, 330, 320, 310, 300, 290];
+    results = [405, 385, 375, 342, 317, 342, 323, 312, 272, 298, 293, 287];
+    createResultsChart('goals-chart', results, goals);
+}
