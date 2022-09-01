@@ -44,10 +44,40 @@ function createResultsChart(targetID, results, goals) {
     });
 }
 
+function fillProfileInformation(name, age, weight, height, imageURL) {
+    document.getElementById('name').innerText = name;
+    document.getElementById('age').innerText = age;
+    document.getElementById('weight').innerText = weight;
+    document.getElementById('height').innerText = height;
+    document.getElementById('profile-image').src = imageURL;
+}
+
+// toggleLoading hides the contentID and displays the loading spinner on the page.
+function toggleLoading(isLoading, loadingSpinnerID = 'loading-spinner', contentID = 'content') {
+    const spinner = document.getElementById(loadingSpinnerID);
+    const content = document.getElementById(contentID);
+    if (isLoading) {
+        content.classList.add('d-none'); // Hide the content until loaded
+        spinner.classList.remove('d-none'); // Show the spinner until loaded
+    } else {
+        content.classList.remove('d-none'); // Show loaded content
+        spinner.classList.add('d-none'); // Hide spinner from loaded content
+    }
+}
+
 // initProfilePage initializes dynamic data for the profile page
 function initProfilePage() {
+    // Loading page
+    toggleLoading(true);
+
+    // Fill in the profile information
+    fillProfileInformation('Person A', '154', '294 lb', '12\'4"', 'images/sample-image.webp');
+
     // Create the results graph
     goals = [400, 390, 380, 370, 360, 350, 340, 330, 320, 310, 300, 290];
-    results = [405, 385, 375, 342, 317, 342, 323, 312, 272, 298, 293, 287];
+    results = [405, 385, 375, 342, 317, 342, 323, 312, 0, 0, 0, 0];
     createResultsChart('goals-chart', results, goals);
+
+    // Page loaded
+    toggleLoading(false);
 }
