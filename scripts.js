@@ -24,7 +24,7 @@ function createResultsChart(targetID, results, goals) {
                     'rgb(255,99,132,1)'
                 ],
                 borderWidth: 1
-            },{
+            }, {
                 label: 'Actual',
                 data: results,
                 backgroundColor: [
@@ -85,6 +85,23 @@ function calculateBMI(weight, height) {
     return Math.round(bmi * 100) / 100 // Trim to 2 decimal places
 }
 
+function createResultsRadarGraph(targetID, data) {
+    const config = {
+        type: 'radar',
+        data: data,
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            }
+        }
+    };
+
+    const ctx = document.getElementById(targetID).getContext('2d');
+    const chart = new Chart(ctx, config);
+}
+
 // initProfilePage initializes dynamic data for the profile page
 function initProfilePage() {
     // Loading page
@@ -97,6 +114,84 @@ function initProfilePage() {
     goals = [400, 390, 380, 370, 360, 350, 340, 330, 320, 310, 300, 290];
     results = [405, 385, 375, 342, 317, 342, 323, 312, 0, 0, 0, 0];
     createResultsChart('goals-chart', results.map(x => calculateBMI(x, 148)), goals.map(x => calculateBMI(x, 148)));
+
+    // Page loaded
+    toggleLoading(false);
+}
+
+function initResultsPage() {
+    const DAILY_RESULTS_GRAPH_OUT_ID = 'daily-result-chart';
+    const WEEKLY_RESULTS_GRAPH_OUT_ID = 'weekly-result-chart';
+    toggleLoading(true);
+
+    // Results need to be normalized by the goal so the values aren't drastically different
+    // from eachother. Ie calories of 1500 on a goal of 2000 should be graphed as .75 rather
+    // than 1500.
+    dailyResultsGraph = {
+        labels: [
+            'Calories',
+            'Protein',
+            'Carbohydrates',
+            'Fats',
+            'Water'
+        ],
+        datasets: [{
+            label: 'Actual',
+            data: [.75, 1.2, 1.1, .64, .3],
+            fill: true,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 99, 132)'
+        }, {
+            label: 'Goal',
+            data: [1, 1, 1, 1, 1],
+            fill: true,
+            backgroundColor: 'rgba(0, 253, 253, 0.2)',
+            borderColor: 'rgb(0, 253, 253)',
+            pointBackgroundColor: 'rgb(0, 253, 253)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(0, 253, 253)'
+        }]
+    };
+
+    // Weekly Result chart
+    weeklyResultsGraph = {
+        labels: [
+            'Calories',
+            'Protein',
+            'Carbohydrates',
+            'Fats',
+            'Water'
+        ],
+        datasets: [{
+            label: 'Actual',
+            data: [1.2, .83, .94, 1.2, .3],
+            fill: true,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 99, 132)'
+        }, {
+            label: 'Goal',
+            data: [1, 1, 1, 1, 1],
+            fill: true,
+            backgroundColor: 'rgba(0, 253, 253, 0.2)',
+            borderColor: 'rgb(0, 253, 253)',
+            pointBackgroundColor: 'rgb(0, 253, 253)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(0, 253, 253)'
+        }]
+    };
+
+    createResultsRadarGraph(DAILY_RESULTS_GRAPH_OUT_ID, dailyResultsGraph);
+    createResultsRadarGraph(WEEKLY_RESULTS_GRAPH_OUT_ID, weeklyResultsGraph);
 
     // Page loaded
     toggleLoading(false);
