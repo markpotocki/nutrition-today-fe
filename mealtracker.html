@@ -1,0 +1,54 @@
+<html !doctype="html" lang="en">
+
+<head>
+    <title>Meal Tracker Page</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="stylesMT.css">
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <span>
+                <i id="toggle-btn" data-toggle="nav-menu" class="fa-solid fa-bars"></i>
+            </span>
+            <span class="spacer"></span>
+            <!-- Profile image -->
+            <span class="nav-profile-btn">
+                <span>User</span>
+                <img src="https://cdn-icons-png.flaticon.com/512/3899/3899618.png" alt="user's picture">
+            </span>
+            <!-- /Profile Image-->
+        </div>
+
+        <!-- Menu buttonss -->
+        <div class="nav-menu hide" id="nav-menu">
+            <ul>
+                <li><a href="#">Meal Tracker</a></li>
+                <li><a href="#">Saved Meals</a></li>
+                <li><a href="#">Results</a></li>
+            </ul>
+        </div>
+        <!-- /Menu buttons -->
+    </nav>
+    <h1>Meal Tracker</h1>
+    <h2>Enter Name of Food</h2>
+    <form class="form" onchange="checkAll();">
+    <div class="row">
+        <input type="text" id="foodName" class="input" placeholder="Food Name" onkeyup="Foodname(this.value);">
+    </div>
+    <div class="errorFoodname">
+        <span class="row error">Invalid Foodname.</span>
+    </div>    
+    <div class="row">
+        <button class="myBtn" id="resultsBtn">See Results</button>
+    </div>
+    <h3>List of Food Options:</h3>
+
+    </form>
+
+    <script src="https://kit.fontawesome.com/4d2c6edf57.js" crossorigin="anonymous"></script>
+    <script src="scripts.js"></script>
+
+</body>
+</html>

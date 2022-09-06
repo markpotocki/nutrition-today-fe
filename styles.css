@@ -1,0 +1,144 @@
+body {
+    margin: 0;
+}
+
+/* Navigations */
+
+.hide {
+    display: none;
+}
+
+.spacer {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav {
+    background-color: skyblue;
+    padding: 8px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu {
+    transition: display 1s;
+}
+
+.nav-menu ul {
+    list-style: none;
+    margin-block: 0;
+    padding-inline-start: 0;
+}
+
+.nav-menu ul li {
+    padding: 0.5rem;
+}
+
+.nav-menu ul li:hover {
+    background-color: lightblue;
+}
+
+.nav-menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-profile-btn img {
+    height: 52px;
+    width: 52px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.nav-profile-btn {
+    display: flex;
+    align-items: center;
+}
+
+.nav-profile-btn span {
+    padding: 4px;
+}
+
+/* End navigation */
+
+/* Login Page */
+h1 {
+    margin: .25rem;
+    text-align: center;
+    color: skyblue;
+    padding: 100px;
+    
+}
+.form{
+    text-align: center;
+}
+.input{
+	padding:15px;
+	margin:5px;
+	border-radius:15px;
+    text-align: center;
+}
+.errorUsername{
+	display:none;
+	margin:10px;
+	color: orange;
+}
+.errorPassword{
+	display:none;
+	margin:10px;
+	color: orange;
+}
+.row{
+	display:block;
+}
+.myBtn{
+	display: inline-block;
+	padding: 15px;
+	font-size: 12px;
+	border-radius: 15px;
+}
+/* End Login Page */
+/* meal tracker */
+
+h1 {
+    margin: .25rem;
+    text-align: center;
+    color: skyblue;
+    padding: 100px;
+}
+h2 {
+    margin: .25rem;
+    text-align: center;
+    padding: 0px;
+}
+.row{
+	display:block;
+}
+.input{
+	padding:15px;
+	margin:5px;
+	border-radius:15px;
+    text-align: center;
+}
+.form{
+    text-align: center;
+}
+.errorFoodname{
+	display:none;
+	margin:10px;
+	color: orange;
+}
+.myBtn{
+	display: inline-block;
+	padding: 5px;
+	font-size: 12px;
+	border-radius: 15px;
+}
+h3{
+    text-align: center;
+    padding: 80px;
+}
+/* end meal tracker */
