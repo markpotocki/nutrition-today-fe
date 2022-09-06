@@ -42,7 +42,7 @@
     <div class="container" id="content">
         <h1>New User</h1>
         <!-- Username/Email -->
-        <form>
+        <form id="registration-form">
             <div class="row">
                 <div class="col">
                     <h4>Account Information</h4>
@@ -170,7 +170,7 @@
             <!-- Submit Button -->
             <div class="row">
                 <div class="col text-end">
-                    <button id="submit-btn" class="btn btn-primary">Register</button>
+                    <input type="submit" id="submit-btn" class="btn btn-primary" value="Register">
                 </div>
             </div>
         </form>
@@ -184,6 +184,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"
         integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
+    <script>
+        document.onload = initRegisterPage();
+    </script>
 </body>
 
 </html>
