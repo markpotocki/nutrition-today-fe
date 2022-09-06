@@ -13,69 +13,11 @@ body {
     margin-right: auto;
 }
 
-nav {
-    background-color: skyblue;
-    padding: 8px;
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
-}
-
-.nav-menu {
-    transition: display 1s;
-}
-
-.nav-menu ul {
-    list-style: none;
-    margin-block: 0;
-    padding-inline-start: 0;
-}
-
-.nav-menu ul li {
-    padding: 0.5rem;
-}
-
-.nav-menu ul li:hover {
-    background-color: lightblue;
-}
-
-.nav-menu ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-.nav-profile-btn img {
-    height: 52px;
-    width: 52px;
-    border-radius: 50%;
-    border: 1px solid black;
-}
-
-.nav-profile-btn {
-    display: flex;
-    align-items: center;
-}
-
-.nav-profile-btn span {
-    padding: 4px;
-}
-
-/* End navigation */
-
 /* Login Page */
-h1 {
-    margin: .25rem;
-    text-align: center;
-    color: skyblue;
-    padding: 100px;
-    
-}
-.form{
+.mt-form{
     text-align: center;
 }
-.input{
+.mt-input{
 	padding:15px;
 	margin:5px;
 	border-radius:15px;
@@ -91,7 +33,7 @@ h1 {
 	margin:10px;
 	color: orange;
 }
-.row{
+.mt-row{
 	display:block;
 }
 .myBtn{
@@ -103,27 +45,27 @@ h1 {
 /* End Login Page */
 /* meal tracker */
 
-h1 {
+.mt-h1 {
     margin: .25rem;
     text-align: center;
     color: skyblue;
     padding: 100px;
 }
-h2 {
+.mt-h2 {
     margin: .25rem;
     text-align: center;
     padding: 0px;
 }
-.row{
+.mt-row{
 	display:block;
 }
-.input{
+.mt-input{
 	padding:15px;
 	margin:5px;
 	border-radius:15px;
     text-align: center;
 }
-.form{
+.mt-form{
     text-align: center;
 }
 .errorFoodname{
@@ -137,7 +79,7 @@ h2 {
 	font-size: 12px;
 	border-radius: 15px;
 }
-h3{
+.mt-h3{
     text-align: center;
     padding: 80px;
 }

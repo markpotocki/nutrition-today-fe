@@ -3,55 +3,59 @@
 <head>
     <title>Log In Page</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <nav>
-        <div class="navbar">
-            <span>
-                <i id="toggle-btn" data-toggle="nav-menu" class="fa-solid fa-bars"></i>
-            </span>
-            <span class="spacer"></span>
-            <!-- Profile image -->
-            <span class="nav-profile-btn">
-                <span>User</span>
-                <img src="https://cdn-icons-png.flaticon.com/512/3899/3899618.png" alt="user's picture">
-            </span>
-            <!-- /Profile Image-->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Profile</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Meal Tracker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Saved Meals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Results</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-        <!-- Menu buttons -->
-        <div class="nav-menu hide" id="nav-menu">
-            <ul>
-                <li><a href="#">Meal Tracker</a></li>
-                <li><a href="#">Saved Meals</a></li>
-                <li><a href="#">Results</a></li>
-            </ul>
-        </div>
-        <!-- /Menu buttons -->
     </nav>
 
-    <form class="form" onchange="checkAll();">
-           <h1>Nutrition Today</h1>
-           <div class="row">
+    <form class="mt-form" onchange="checkAll();">
+           <h1 class="mt-h1">Nutrition Today</h1>
+           <div class="mt-row">
                <input type="text" id="userName" class="input" placeholder="Enter Username" onkeyup="Username(this.value);">
            </div>
            <div class="errorUsername">
                <span class="row error">Invalid Username.</span>
            </div>
-           <div class="row">
+           <div class="mt-row">
                <input type="text" id="Password" class="input" placeholder="Enter Password" onkeyup="Password(this.value);">
            </div>
            <div class="errorPassword">
                <span class="row error">Invalid Password.</span>
            </div>
-           <div class="row">
-               <button class="myBtn" id="loginBtn">Login</button>
+           <div class="mt-row">
+               <button class="btn btn-primary" id="loginBtn">Login</button>
            </div>
        </form>
 
     <script src="https://kit.fontawesome.com/4d2c6edf57.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"
+        integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
