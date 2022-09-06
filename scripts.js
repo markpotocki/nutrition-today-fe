@@ -119,6 +119,7 @@ function initProfilePage() {
     toggleLoading(false);
 }
 
+
 function initResultsPage() {
     const DAILY_RESULTS_GRAPH_OUT_ID = 'daily-result-chart';
     const WEEKLY_RESULTS_GRAPH_OUT_ID = 'weekly-result-chart';
@@ -196,3 +197,60 @@ function initResultsPage() {
     // Page loaded
     toggleLoading(false);
 }
+
+function submitRegistrationForm(e) {
+    e.preventDefault();
+    const REGISTRATION_FORM_ID = 'registration-form';
+    const registrationForm = document.getElementById(REGISTRATION_FORM_ID);
+    const data = new FormData(registrationForm);
+
+    console.log(data);
+    // TODO add POST
+    
+}
+
+function initRegisterPage() {
+    const REGISTRATION_FORM_ID = 'registration-form';
+    const registrationForm = document.getElementById(REGISTRATION_FORM_ID);
+    registrationForm.addEventListener('submit', submitRegistrationForm);
+}
+
+//created function for Username using this.value
+function Username(value)
+{
+//made an if/else condition depending on length of letters
+	if(value.length >= 5)
+   {
+       document.getElementsByClassName("errorUsername")[0].style="display:none;";
+   }else
+   {
+       document.getElementsByClassName("errorUsername")[0].style="display:block;";
+   }
+}
+//created function for Age using this.value
+function Password(value)
+{
+//made an if/else condition depending if a real number is used
+	if(value.length >=5)
+	{
+       document.getElementsByClassName("errorPassword")[0].style="display:none;";
+      
+	}else
+	{
+       document.getElementsByClassName("errorPassword")[0].style="display:block;";
+	}
+}
+
+function Foodname(value)
+{
+//made an if/else condition depending on length of letterss
+	if(value.length >= 2)
+   {
+       document.getElementsByClassName("errorFoodname")[0].style="display:none;";
+   }else
+   {
+       document.getElementsByClassName("errorFoodname")[0].style="display:block;";
+   }
+}
+
+
