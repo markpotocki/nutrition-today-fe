@@ -101,3 +101,20 @@ function initProfilePage() {
     // Page loaded
     toggleLoading(false);
 }
+
+function submitRegistrationForm(e) {
+    e.preventDefault();
+    const REGISTRATION_FORM_ID = 'registration-form';
+    const registrationForm = document.getElementById(REGISTRATION_FORM_ID);
+    const data = new FormData(registrationForm);
+
+    console.log(data);
+    // TODO add POST
+    
+}
+
+function initRegisterPage() {
+    const REGISTRATION_FORM_ID = 'registration-form';
+    const registrationForm = document.getElementById(REGISTRATION_FORM_ID);
+    registrationForm.addEventListener('submit', submitRegistrationForm);
+}
