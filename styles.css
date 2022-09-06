@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+}
+
+/* Navigations */
+
+.hide {
+    display: none;
+}
+
+.spacer {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Login Page */
+.mt-form{
+    text-align: center;
+}
+.mt-input{
+	padding:15px;
+	margin:5px;
+	border-radius:15px;
+    text-align: center;
+}
+.errorUsername{
+	display:none;
+	margin:10px;
+	color: orange;
+}
+.errorPassword{
+	display:none;
+	margin:10px;
+	color: orange;
+}
+.mt-row{
+	display:block;
+}
+.myBtn{
+	display: inline-block;
+	padding: 15px;
+	font-size: 12px;
+	border-radius: 15px;
+}
+/* End Login Page */
+/* meal tracker */
+
+.mt-h1 {
+    margin: .25rem;
+    text-align: center;
+    color: skyblue;
+    padding: 100px;
+}
+.mt-h2 {
+    margin: .25rem;
+    text-align: center;
+    padding: 0px;
+}
+.mt-row{
+	display:block;
+}
+.mt-input{
+	padding:15px;
+	margin:5px;
+	border-radius:15px;
+    text-align: center;
+}
+.mt-form{
+    text-align: center;
+}
+.errorFoodname{
+	display:none;
+	margin:10px;
+	color: orange;
+}
+.myBtn{
+	display: inline-block;
+	padding: 5px;
+	font-size: 12px;
+	border-radius: 15px;
+}
+.mt-h3{
+    text-align: center;
+    padding: 80px;
+}
+/* end meal tracker */
