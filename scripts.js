@@ -1,5 +1,7 @@
 // Constants
 const API_URL = '';
+const STORAGE_STATE_KEY = 'auth-state';
+const STORAGE_PKCE_KEY = 'auth-pkce';
 
 // goals-chart
 // createResultsChart takes a targetID of a canvas element and 
@@ -108,7 +110,7 @@ function initProfilePage() {
     toggleLoading(true);
 
     // Fill in the profile information
-    fillProfileInformation('Person A', '154', '294 lb', '12\'4"', 'images/sample-image.webp');
+    fillProfileInformation('Person A', '154', '294 lb', "12'4", 'images/sample-image.webp');
 
     // Create the results graph
     goals = [400, 390, 380, 370, 360, 350, 340, 330, 320, 310, 300, 290];
@@ -221,10 +223,10 @@ function Username(value)
 //made an if/else condition depending on length of letters
 	if(value.length >= 5)
    {
-       document.getElementsByClassName("errorUsername")[0].style="display:none;";
+       document.getElementsByClassName('errorUsername')[0].style='display:none;';
    }else
    {
-       document.getElementsByClassName("errorUsername")[0].style="display:block;";
+       document.getElementsByClassName('errorUsername')[0].style='display:block;';
    }
 }
 //created function for Age using this.value
@@ -233,11 +235,11 @@ function Password(value)
 //made an if/else condition depending if a real number is used
 	if(value.length >=5)
 	{
-       document.getElementsByClassName("errorPassword")[0].style="display:none;";
+       document.getElementsByClassName('errorPassword')[0].style='display:none;';
       
 	}else
 	{
-       document.getElementsByClassName("errorPassword")[0].style="display:block;";
+       document.getElementsByClassName('errorPassword')[0].style='display:block;';
 	}
 }
 
@@ -246,11 +248,127 @@ function Foodname(value)
 //made an if/else condition depending on length of letterss
 	if(value.length >= 2)
    {
-       document.getElementsByClassName("errorFoodname")[0].style="display:none;";
+       document.getElementsByClassName('errorFoodname')[0].style='display:none;';
    }else
    {
-       document.getElementsByClassName("errorFoodname")[0].style="display:block;";
+       document.getElementsByClassName('errorFoodname')[0].style='display:block;';
    }
+}
+
+async function redirectLogin() {
+    // Generate state key
+    const stateKeyLength = 32;
+    const authState = btoa(createRandomKey(stateKeyLength));
+    // Save State
+    sessionStorage.setItem(STORAGE_STATE_KEY, authState);
+
+    // RFC 7636 - Generate PKCE code
+    const pkceKeyLength = 64; // Between 43 and 128
+    const pkceVerifierCode = createRandomKey(pkceKeyLength);
+    const encoder = new TextEncoder();
+    const hash = await crypto.subtle.digest('SHA-256', encoder.encode(pkceVerifierCode));
+    const pkceChallengeCode = urlBase64Encode(String.fromCharCode(...new Uint8Array(hash)));
+    // Save PKCE
+    sessionStorage.setItem(STORAGE_PKCE_KEY, pkceVerifierCode);
+
+    // Redirect to the login page
+    const oauthEndpoint = 'https://nutrition-today.auth.us-east-2.amazoncognito.com';
+    const clientID = 'q716ujjs27f895ug51tkmsm16';
+    const redirectURI = 'https://dqug5shqk9nvq.cloudfront.net/callback.html';
+
+    window.location = `${oauthEndpoint}/oauth2/authorize?response_type=code&client_id=${clientID}&redirect_uri=${redirectURI}&state=${authState}&code_challenge=${pkceChallengeCode}&code_challenge_method=S256`;
+}
+
+function urlBase64Encode(str) {
+    return btoa(str).replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '');
+}
+
+function createRandomKey(length) {
+    const randomNumbers = new Uint8Array(length);
+    crypto.getRandomValues(randomNumbers);
+    return urlBase64Encode(String.fromCharCode(...new Uint8Array(randomNumbers)));
+}
+
+async function handleOauthCallback() {
+    const params = new URLSearchParams(window.location.search);
+
+    // If param code is present, need to trade for token
+    const code = params.get('code');
+    const state = params.get('state');
+    await fetchToken(code, state);
+}
+
+function fetchToken(code, state) {
+    const oauthEndpoint = 'https://nutrition-today.auth.us-east-2.amazoncognito.com';
+    const clientID = 'q716ujjs27f895ug51tkmsm16';
+    const redirectURI = 'https://dqug5shqk9nvq.cloudfront.net/callback.html';
+    // State must match or fail flow
+    if (sessionStorage.getItem(STORAGE_STATE_KEY) === null || 
+        sessionStorage.getItem(STORAGE_STATE_KEY) != state) {
+        failAuthenticationFlow('state_change', 'state from server did not match expected');
+    }
+
+    // Retrieve code verifier
+    codeVerifier = sessionStorage.getItem(STORAGE_PKCE_KEY);
+    if (codeVerifier === null) {
+        failAuthenticationFlow('no_verifier', 'no code verifier is available to send');
+    }
+
+    // Fetch the token
+    request_url = `${oauthEndpoint}/oauth2/token`;
+    const data = new URLSearchParams();
+    data.append('grant_type', 'authorization_code');
+    data.append('client_id', clientID);
+    data.append('redirect_uri', redirectURI);
+    data.append('code', code);
+    data.append('code_verifier', codeVerifier);
+    return fetch(request_url, {
+        method: 'POST',
+        body: data,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+    .then(response => response.json())
+    .then(tokens => {
+        saveIDToken(tokens['id_token']);
+        saveAccessToken(tokens['access_token']);
+        saveRefreshToken(tokens['refresh_token'])
+    })
+    .catch(err => failAuthenticationFlow('token_fetch', err))
+}
+
+const A_TOKEN_STORAGE_KEY = 'access';
+const R_TOKEN_STORAGE_KEY = 'refresh';
+const I_TOKEN_STORAGE_KEY = 'id';
+
+function saveIDToken(token) {
+    localStorage.setItem(I_TOKEN_STORAGE_KEY, token);
+}
+
+function getIDToken() {
+    return localStorage.getItem(I_TOKEN_STORAGE_KEY);
+}
+
+function saveAccessToken(token) {
+    localStorage.setItem(A_TOKEN_STORAGE_KEY, token);
+}
+
+function getAccessToken() {
+    return localStorage.getItem(A_TOKEN_STORAGE_KEY);
+}
+
+function saveRefreshToken(token) {
+    localStorage.setItem(R_TOKEN_STORAGE_KEY, token);
+}
+
+function getRefreshToken() {
+    return localStorage.getItem(R_TOKEN_STORAGE_KEY);
+}
+
+function failAuthenticationFlow(status, message) {
+    console.error(message);
+    window.location = `/login.html?error=${status}`
 }
 
 
