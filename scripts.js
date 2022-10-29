@@ -255,6 +255,11 @@ function Foodname(value)
    }
 }
 
+// ** Authentication ** //
+const oauthEndpoint = 'https://nutritiontoday.auth.us-east-2.amazoncognito.com'
+const clientID = '1gfvsni539okobihuqfg6647jb';
+const redirectURI = 'http://localhost:8080/callback.html';
+
 async function redirectLogin() {
     // Generate state key
     const stateKeyLength = 32;
@@ -272,9 +277,7 @@ async function redirectLogin() {
     sessionStorage.setItem(STORAGE_PKCE_KEY, pkceVerifierCode);
 
     // Redirect to the login page
-    const oauthEndpoint = 'https://nutrition-today.auth.us-east-2.amazoncognito.com';
-    const clientID = 'q716ujjs27f895ug51tkmsm16';
-    const redirectURI = 'https://dqug5shqk9nvq.cloudfront.net/callback.html';
+    
 
     window.location = `${oauthEndpoint}/oauth2/authorize?response_type=code&client_id=${clientID}&redirect_uri=${redirectURI}&state=${authState}&code_challenge=${pkceChallengeCode}&code_challenge_method=S256`;
 }
@@ -299,9 +302,6 @@ async function handleOauthCallback() {
 }
 
 function fetchToken(code, state) {
-    const oauthEndpoint = 'https://nutrition-today.auth.us-east-2.amazoncognito.com';
-    const clientID = 'q716ujjs27f895ug51tkmsm16';
-    const redirectURI = 'https://dqug5shqk9nvq.cloudfront.net/callback.html';
     // State must match or fail flow
     if (sessionStorage.getItem(STORAGE_STATE_KEY) === null || 
         sessionStorage.getItem(STORAGE_STATE_KEY) != state) {
@@ -336,6 +336,10 @@ function fetchToken(code, state) {
         saveRefreshToken(tokens['refresh_token'])
     })
     .catch(err => failAuthenticationFlow('token_fetch', err))
+}
+
+function refreshAuthentication() {
+    
 }
 
 const A_TOKEN_STORAGE_KEY = 'access';
